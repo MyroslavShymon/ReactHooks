@@ -1,30 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useCallback } from "react";
 
 import "./App.css";
-import Count from "./Count";
-import IsFive from "./IsFive";
+import Cars from "./Cars";
 
 function App() {
-  const [count1, setCount1] = useState(0);
-  const [count2, setCount2] = useState(0);
-
+  const [counter, setCounter] = useState(0);
+  const [model, setModel] = useState("");
+  const [cars, setCars] = useState([
+    { id: 1, model: "Mercedes Benz" },
+    { id: 2, model: "Shevrolet Aveo" },
+    { id: 3, model: "AUDI A8" },
+  ]);
   return (
-    <div className="App">
-      <span style={{ fontWeight: "bold" }}>Counter 1:</span>
-      <div className="counter">
-        <button onClick={() => setCount1(count1 + 1)}>+</button>
-        <Count id={1} value={count1} />
-      </div>
-
+    <>
+      <Cars cars={cars} />
+      <br />
+      <input
+        type="text"
+        value={model}
+        onChange={(event) => setModel(event.target.value)}
+      />
+      <button
+        onClick={() => {
+          setCars(cars.concat([{ id: cars.length + 1, model }]));
+        }}
+      >
+        Add car
+      </button>
       <hr />
-
-      <span style={{ fontWeight: "bold" }}>Counter 2:</span>
-      <div className="counter">
-        <button onClick={() => setCount2(count2 + 1)}>+</button>
-        <Count id={2} value={count2} />
-        <IsFive value={count2} />
-      </div>
-    </div>
+      <button onClick={() => setCounter(counter + 1)}>+++</button>
+      <br />
+      {counter}
+    </>
   );
 }
 
